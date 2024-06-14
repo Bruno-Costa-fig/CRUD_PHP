@@ -32,6 +32,9 @@
               <li><a class="dropdown-item <?= (@$_REQUEST["page"] == "listar") ? "active" : "" ?>" href="?page=listar">Listar</a></li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?page=logout">Sair</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -41,7 +44,13 @@
     <div class="row">
       <div class="col mt-5">
         <?php
+        session_start();
         include("./config.php");
+
+        if(empty($_SESSION)){
+          header("Location: login.php");
+        }
+
         switch (@$_REQUEST["page"]) {
           case "novo":
             include("./pages/novo-usuario.php");
@@ -49,9 +58,15 @@
           case "listar":
             include("./pages/listar-usuarios.php");
             break;
+          case "editar":
+            include("./pages/editar-usuario.php");
+            break;
           case "usuario-action":
-              include("./pages/usuario-action.php");
-              break;
+            include("./pages/usuario-action.php");
+            break;
+          case "logout":
+            include("./logout.php");
+            break;
           default:
             echo "<h2>Bem-vindo</h2>";
         }

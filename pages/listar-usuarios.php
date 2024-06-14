@@ -11,6 +11,7 @@ if ($qtd > 0) {
           <th>Nome</th>
           <th>Email</th>
           <th>Data de Nascimento</th>
+          <th>Ações</th>
       </tr>
     HTML;
   while ($row = $res->fetch_object()) {
@@ -19,6 +20,10 @@ if ($qtd > 0) {
     print "<td>" . $row->nome . "</td>";
     print "<td>" . $row->email . "</td>";
     print "<td>" . $row->data_nasc . "</td>";
+    print "<td>
+              <button onclick=\"location.href='?page=editar&id=" . $row->id . "'\" class='btn btn-success'>Editar</button>
+              <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=usuario-action&acao=excluir&id=" . $row->id . "'}\" class='btn btn-danger'>Excluir</button>
+          </td>";
     print "</tr>";
   }
   print "</table>";
